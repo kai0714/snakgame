@@ -16,7 +16,10 @@ function initGame() {
         cells: [],
         maxCells: 4
     };
-    apple = {
+    apple 1 = {
+        x: getRandomInt(0, 20) * grid,
+        y: getRandomInt(0, 20) * grid
+    apple 2 = {
         x: getRandomInt(0, 20) * grid,
         y: getRandomInt(0, 20) * grid
     };
