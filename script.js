@@ -7,22 +7,28 @@ const scoreDisplay = document.getElementById('score');
 const grid = 20;
 let snake, apple, count, speed, score;
 
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
 function initGame() {
+    resizeCanvas();  // 初始化時設定 canvas 大小
+
     snake = {
-        x: 160,
-        y: 160,
+        x: Math.floor(canvas.width / 2 / grid) * grid,
+        y: Math.floor(canvas.height / 2 / grid) * grid,
         dx: grid,
         dy: 0,
         cells: [],
         maxCells: 4
     };
-    apple 1 = {
-        x: getRandomInt(0, 20) * grid,
-        y: getRandomInt(0, 20) * grid
-    apple 2 = {
-        x: getRandomInt(0, 20) * grid,
-        y: getRandomInt(0, 20) * grid
+    
+    apple = {
+        x: getRandomInt(0, Math.floor(canvas.width / grid)) * grid,
+        y: getRandomInt(0, Math.floor(canvas.height / grid)) * grid
     };
+    
     count = 0;
     score = 0;
     speed = parseInt(difficultySelect.value);
@@ -74,8 +80,8 @@ function gameLoop() {
             snake.maxCells++;
             score++;
             updateScore();
-            apple.x = getRandomInt(0, 20) * grid;
-            apple.y = getRandomInt(0, 20) * grid;
+            apple.x = getRandomInt(0, Math.floor(canvas.width / grid)) * grid;
+            apple.y = getRandomInt(0, Math.floor(canvas.height / grid)) * grid;
         }
 
         // 撞到自己
@@ -112,6 +118,9 @@ document.addEventListener('keydown', e => {
 restartBtn.addEventListener('click', () => {
     initGame();
 });
+
+// 窗口大小改變時調整 canvas 大小
+window.addEventListener('resize', resizeCanvas);
 
 initGame();
 requestAnimationFrame(gameLoop);
